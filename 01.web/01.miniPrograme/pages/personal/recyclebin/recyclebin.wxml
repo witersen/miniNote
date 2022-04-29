@@ -1,0 +1,47 @@
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+  <view slot="content">回收站</view>
+</cu-custom>
+<!-- 搜索 -->
+<view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px;">
+  <view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input type="text" placeholder="输入搜索的关键词" bindinput="BindNoteSearch" confirm-type="search"></input>
+  </view>
+  <!-- <view class="action" bindtap="ScanQr">
+    <text class="cuIcon-scan"></text>
+  </view> -->
+</view>
+<view style="margin-top:120rpx"></view>
+<!-- 笔记列表 -->
+<view class="cu-card" wx:for="{{formNoteInfo.noteList}}">
+  <!-- 暂时取消行高亮 -->
+  <!-- <view class="cu-item shadow-blur note" style="{{formCurrentSelect.noteIndex==index?'background-color:#cacaca':''}}" bindtap="ClickNote" bindlongpress="LongperssNote" data-noteId="{{item.noteId}}" data-noteIndex="{{index}}"> -->
+  <view class="cu-item shadow-blur note" bindtap="ClickNote" bindlongpress="LongperssNote" data-noteId="{{item.noteId}}" data-noteIndex="{{index}}">
+    <view class="noteContent">
+      <view class="noteTitle">
+        <span wx:if="{{item.noteEncryptStatus == 1 &&item.noteLockStatus == 1}}" class="cuIcon-lock lg text-gray"></span>
+        <span wx:if="{{item.noteEncryptStatus == 1 &&item.noteLockStatus != 1}}" class="cuIcon-unlock lg text-gray"></span>
+        {{item.noteTitle}}
+      </view>
+      <view class="noteDescription">{{item.noteDescription}}</view>
+      <view class="noteCreateTime">{{item.noteCreateTime}}</view>
+    </view>
+  </view>
+</view>
+<!-- 笔记操作底部窗口 -->
+<view class="cu-modal bottom-modal {{modalShowNote?'show':''}}" bindtap="ModalHideNote">
+  <view class="cu-dialog" catchtap>
+    <view class="cu-bar bg-white">
+      <view class="action text-green">笔记设置</view>
+      <view class="action text-blue" bindtap="ModalHideNote">取消</view>
+    </view>
+    <view class="grid col-3 padding-sm">
+      <view class="padding-xs">
+        <button class="cu-btn orange lg block line-orange" bindtap="RecoveryNote">恢复</button>
+      </view>
+      <view class="padding-xs">
+        <button class="cu-btn orange lg block line-red" bindtap="DelNote">彻底删除</button>
+      </view>
+    </view>
+  </view>
+</view>

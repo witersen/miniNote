@@ -1,0 +1,233 @@
+<cu-custom bgColor="bg-gradual-blue" isBack="{{false}}">
+  <view slot="content">笔记</view>
+</cu-custom>
+<!-- 搜索 -->
+<view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px;">
+  <view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input type="text" placeholder="输入搜索的关键词" bindinput="BindNoteSearch" confirm-type="search"></input>
+  </view>
+  <view class="action" bindtap="ScanQr">
+    <text class="cuIcon-scan"></text>
+  </view>
+</view>
+<view style="margin-top:120rpx"></view>
+<!-- 文件夹列表 -->
+<view class="cu-card" wx:for="{{classList}}">
+  <!-- 暂时取消选中高亮 -->
+  <!-- <view class="cu-item shadow-blur note" style="{{formCurrentSelect.classIndex==index?'background-color:#cacaca':''}}" bindtap="ClickClass" bindlongpress="LongperssClass" data-classIndex="{{index}}" data-classId="{{item.classId}}"> -->
+  <view class="cu-item shadow-blur note" bindtap="ClickClass" bindlongpress="LongperssClass" data-classIndex="{{index}}" data-classId="{{item.classId}}">
+    <view class="floder">
+      <view class="floderIcon"></view>
+      <view class="floderTitle">{{item.className}}</view>
+      <view class="floderNoteCount">{{item.noteCount}}</view>
+    </view>
+  </view>
+</view>
+<!-- 笔记列表 -->
+<view class="cu-card" wx:for="{{formNoteInfo.noteList}}">
+  <!-- 暂时取消行高亮 -->
+  <!-- <view class="cu-item shadow-blur note" style="{{formCurrentSelect.noteIndex==index?'background-color:#cacaca':''}}" bindtap="ClickNote" bindlongpress="LongperssNote" data-noteId="{{item.noteId}}" data-noteIndex="{{index}}"> -->
+  <view class="cu-item shadow-blur note" bindtap="ClickNote" bindlongpress="LongperssNote" data-noteId="{{item.noteId}}" data-noteIndex="{{index}}">
+    <view class="noteContent">
+      <view class="noteTitle">
+        <span wx:if="{{item.noteEncryptStatus == 1 &&item.noteLockStatus == 1}}" class="cuIcon-lock lg text-gray"></span>
+        <span wx:if="{{item.noteEncryptStatus == 1 &&item.noteLockStatus != 1}}" class="cuIcon-unlock lg text-gray"></span>
+        {{item.noteTitle}}
+      </view>
+      <view class="noteDescription">{{item.noteDescription}}</view>
+      <view class="noteCreateTime">{{item.noteCreateTime}}</view>
+    </view>
+  </view>
+</view>
+<!-- 新建 -->
+<view class="addnote" bindtap="ModalShowType"></view>
+<!-- 笔记操作底部窗口 -->
+<view class="cu-modal bottom-modal {{modalShowNote?'show':''}}" bindtap="ModalHideNote">
+  <view class="cu-dialog" catchtap>
+    <view class="cu-bar bg-white">
+      <view class="action text-green">笔记设置</view>
+      <view class="action text-blue" bindtap="ModalHideNote">取消</view>
+    </view>
+    <view class="grid col-3 padding-sm">
+      <view class="padding-xs" wx:if="{{formNoteInfo.noteList[formCurrentSelect.noteIndex].noteEncryptStatus == 0}}">
+        <button class="cu-btn orange lg block line-blue" bindtap="GetPrivatePassInfo">加密</button>
+      </view>
+      <view class="padding-xs" wx:if="{{formNoteInfo.noteList[formCurrentSelect.noteIndex].noteEncryptStatus == 1}}">
+        <button class="cu-btn orange lg block line-blue" bindtap="DecryptNote">解密</button>
+      </view>
+      <view class="padding-xs">
+        <button class="cu-btn orange lg block line-orange" bindtap="RemoveNote">移动到</button>
+      </view>
+      <view class="padding-xs">
+        <button class="cu-btn orange lg block line-red" bindtap="ModalShowEditNoteTitle">
+          重命名
+        </button>
+      </view>
+      <view class="padding-xs">
+        <button class="cu-btn orange lg block line-red" bindtap="DelNote">删除</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 分类操作底部窗口 -->
+<view class="cu-modal bottom-modal {{modalShowClass?'show':''}}" bindtap="ModalHideClass">
+  <view class="cu-dialog" catchtap>
+    <view class="cu-bar bg-white">
+      <view class="action text-green">文件夹设置</view>
+      <view class="action text-blue" bindtap="ModalHideClass">取消</view>
+    </view>
+    <view class="grid col-3 padding-sm">
+      <view class="padding-xs">
+        <button class="cu-btn orange lg block line-orange" bindtap="ModalShowEditClass">重命名</button>
+      </view>
+      <view class="padding-xs">
+        <button class="cu-btn orange lg block line-red" bindtap="DelClass">删除</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 点击新建 选择文件夹或者笔记 -->
+<view class="cu-modal bottom-modal {{modalShowType?'show':''}}" bindtap="ModalHideType">
+  <view class="cu-dialog" catchtap>
+    <view class="cu-bar bg-white">
+      <view class="action text-green">类型选择</view>
+      <view class="action text-blue" bindtap="ModalHideType">取消</view>
+    </view>
+    <view class="grid col-3 padding-sm">
+      <view class="padding-xs">
+        <button class="cu-btn orange lg block line-orange" bindtap="ModalShowInputClass">
+          文件夹
+        </button>
+      </view>
+      <view class="padding-xs">
+        <button class="cu-btn orange lg block line-red" bindtap="AddNote">笔记</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 修改文件夹名称 -->
+<view class="cu-modal {{modalShowEditClass?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">文件夹名称</view>
+      <view class="action" bindtap="ModalHideEditClass">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view class="cu-form-group margin-top">
+        <input placeholder="请输入..." bindinput="BindEditClass"></input>
+      </view>
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button class="cu-btn line-green text-green" bindtap="ModalHideEditClass">取消</button>
+        <button class="cu-btn bg-green margin-left" bindtap="EditClass">确定</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 输入文件夹名称 -->
+<view class="cu-modal {{modalShowInputClass?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">文件夹名称</view>
+      <view class="action" bindtap="ModalHideInputClass">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view class="cu-form-group margin-top">
+        <input placeholder="请输入..." bindinput="BindInputClass"></input>
+      </view>
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button class="cu-btn line-green text-green" bindtap="ModalHideInputClass">取消</button>
+        <button class="cu-btn bg-green margin-left" bindtap="ConfirmInputClass">确定</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 修改笔记标题 -->
+<view class="cu-modal {{modalShowEditNoteTitle?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">笔记标题</view>
+      <view class="action" bindtap="ModalHideEditNoteTitle">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view class="cu-form-group margin-top">
+        <input placeholder="请输入..." bindinput="BindEditNoteTitle"></input>
+      </view>
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button class="cu-btn line-green text-green" bindtap="ModalHideEditNoteTitle">取消</button>
+        <button class="cu-btn bg-green margin-left" bindtap="EditNoteTitle">确定</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 输入密码查看笔记内容 -->
+<view class="cu-modal {{modalShowInputUnlock?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">隐私密码</view>
+      <view class="action" bindtap="ModalHideInputUnlock">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view class="cu-form-group margin-top">
+        <input placeholder="请输入..." bindinput="BindInputUnlock"></input>
+      </view>
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button class="cu-btn line-green text-green" bindtap="ModalHideInputUnlock">取消</button>
+        <button class="cu-btn bg-green margin-left" bindtap="ConfirmInputUnlock">确定</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 输入密码取消加密笔记 -->
+<view class="cu-modal {{modalShowInputDecrypt?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">隐私密码</view>
+      <view class="action" bindtap="ModalHideInputDecrypt">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view class="cu-form-group margin-top">
+        <input placeholder="请输入..." bindinput="BindInputDecrypt"></input>
+      </view>
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button class="cu-btn line-green text-green" bindtap="ModalHideInputDecrypt">取消</button>
+        <button class="cu-btn bg-green margin-left" bindtap="ConfirmInputDecrypt">确定</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 文件夹列表2 -->
+<view class="cu-modal {{modalShowClass2?'show':''}}" bindtap="ModalHideClass2">
+  <view class="cu-dialog" catchtap>
+    <radio-group class="block">
+      <view class="cu-list menu text-left">
+        <view class="cu-item" wx:for="{{classList2}}" wx:key>
+          <label class="flex justify-between align-center flex-sub">
+            <view class="flex-sub">(点击右侧){{item.className}}</view>
+            <radio class="round" data-classId="{{item.classId}}" bindtap="ChangeRadio" checked="{{item.selectStatus==1}}"></radio>
+          </label>
+        </view>
+      </view>
+    </radio-group>
+  </view>
+</view>

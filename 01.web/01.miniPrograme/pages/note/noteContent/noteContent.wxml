@@ -1,0 +1,95 @@
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+  <view slot="content">笔记</view>
+</cu-custom>
+<!-- 笔记标题 -->
+<view class="cu-bar bg-white">
+  <view class="action title-style-3">
+    <input type="text" placeholder="标题" disabled="{{true}}" value="{{formNoteContent.noteTitle}}" class="text text-bold" style="padding:10rpx 40rpx 10rpx 10rpx"></input>
+  </view>
+</view>
+<!-- 时间 -->
+<view class="padding bg-white">
+  <!-- 创建时间 -->
+  <view class="cu-capsule radius">
+    <view class="cu-tag bg-white ">
+      <text class="cuIcon-friendadd text-gray"></text>
+      <view class="line-gray sm" style="margin-left: 8rpx;">
+        {{formNoteContent.noteCreateTime}}
+      </view>
+    </view>
+  </view>
+  <!-- 修改时间 -->
+  <view class="cu-capsule radius">
+    <view class="cu-tag bg-white ">
+      <text class="cuIcon-edit text-gray"></text>
+      <view class="line-gray sm" style="margin-left: 8rpx;">
+        {{formNoteContent.noteLastEditTime}}
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 富文本内容 -->
+<view class="cu-card article no-card solid-bottom solid-top">
+  <view class="cu-item shadow" style="padding:40rpx 35rpx;font-size:16px;word-break: break-all;">
+    <editor id="editor" class="ql-container" placeholder="{{placeholder}}" bindinput="EditNoteContent" bindstatuschange="onStatusChange" bindready="onEditorReady"></editor>
+  </view>
+</view>
+<!-- 标签标题 -->
+<view class="cu-bar bg-white">
+  <view class="action border-title">
+    <text class="text-xl text-bold">标签</text>
+    <text class="bg-gradual-blue" style="width:3rem"></text>
+  </view>
+  <view class="action">
+    <button class="cu-btn shadow" bindtap="ModalShowTag">添加</button>
+  </view>
+</view>
+<!-- 标签列表 -->
+<view class="padding-sm flex flex-wrap bg-white">
+  <view class="padding-xs" wx:for="{{formNoteContent.tagList}}" bindtap="DelNoteTag" data-tagId="{{item.tagId}}">
+    <view class="cu-tag radius bg-blue light">{{item.tagName}}</view>
+  </view>
+</view>
+<!-- 操作按钮 -->
+<view class="toolbar" catchtouchend="format" style="bottom: {{isIOS ? keyboardHeight : 0}}px">
+  <!-- 插入图片 -->
+  <i class="iconfont icon-charutupian" catchtouchend="insertImage"></i>
+  <!-- 切换到h2 -->
+  <i class="iconfont icon-format-header-2 {{formats.header === 2 ? 'ql-active' : ''}}" data-name="header" data-value="{{2}}"></i>
+  <!-- 切换到h3 -->
+  <i class="iconfont icon-format-header-3 {{formats.header === 3 ? 'ql-active' : ''}}" data-name="header" data-value="{{3}}"></i>
+  <!-- 切换到加粗 -->
+  <i class="iconfont icon-zitijiacu {{formats.bold ? 'ql-active' : ''}}" data-name="bold"></i>
+  <!-- 切换到斜体 -->
+  <i class="iconfont icon-zitixieti {{formats.italic ? 'ql-active' : ''}}" data-name="italic"></i>
+  <!-- 切换到下划线 -->
+  <i class="iconfont icon-zitixiahuaxian {{formats.underline ? 'ql-active' : ''}}" data-name="underline"></i>
+  <!-- 切换到待办列表 -->
+  <i class="iconfont icon--checklist" data-name="list" data-value="check"></i>
+  <!-- 切换到有序列表 -->
+  <i class="iconfont icon-youxupailie {{formats.list === 'ordered' ? 'ql-active' : ''}}" data-name="list" data-value="ordered"></i>
+  <!-- 切换到无序列表 -->
+  <i class="iconfont icon-wuxupailie {{formats.list === 'bullet' ? 'ql-active' : ''}}" data-name="list" data-value="bullet"></i>
+</view>
+<!-- 标签名称 -->
+<view class="cu-modal {{modalShowTag?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">标签名称</view>
+      <view class="action" bindtap="ModalHideTag">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view class="cu-form-group margin-top">
+        <input placeholder="请输入..." bindinput="BindInputTag"></input>
+      </view>
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button class="cu-btn line-green text-green" bindtap="ModalHideTag">取消</button>
+        <button class="cu-btn bg-green margin-left" bindtap="AddNoteTag">确定</button>
+      </view>
+    </view>
+  </view>
+</view>

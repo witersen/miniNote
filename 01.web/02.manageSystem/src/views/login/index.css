@@ -1,0 +1,83 @@
+body {
+    margin: 0px;
+    background-image: url("../../images/login-bg.jpg");
+}
+
+.myCard {
+    width: 500px;
+    height: 330px;
+    position: absolute;
+    left: calc(33vw);
+    top: calc(29vh);
+}
+
+/* 二维码样式 */
+.qr {
+    text-align: center;
+    margin-top: 20px
+}
+
+.qrTitle {
+    font-size: 14px;
+    color: #666
+}
+
+.qrContent {
+    position: relative;
+    width: 190px;
+    height: 190px;
+    margin: 0 auto;
+}
+
+.qrImage {
+    width: 100%;
+    height: 100%;
+}
+
+.qrMask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, .89);
+}
+
+.qrIcon {
+    text-align: center;
+    display: block;
+    cursor: pointer;
+    margin-top: 40px;
+}
+
+.qrValid {
+    text-align: center;
+    display: block;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.qrSuccess {
+    text-align: center;
+    display: block;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.qrFlush {
+    text-align: center;
+    display: block;
+    cursor: pointer;
+    margin-top: 4px;
+    color: #00a4ff;
+    font-weight: 700;
+}
+
+.qrLogin {
+    text-align: center;
+    display: block;
+    cursor: pointer;
+    margin-top: 4px;
+    color: #00a4ff;
+    font-weight: 700;
+}

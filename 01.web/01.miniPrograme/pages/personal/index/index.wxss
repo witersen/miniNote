@@ -1,0 +1,58 @@
+/* 用户信息 */
+
+.userinfo {
+    display: flex;
+    align-items: center;
+    background-color: #118fff;
+    height: 300rpx;
+  }
+  
+  /* 头像 */
+  
+  .userinfo-avatar {
+    width: 140rpx;
+    height: 140rpx;
+    margin-left: 48rpx;
+    border-radius: 20rpx;
+    background: #f5f7f7;
+  }
+  
+  .userinfo_right {
+    margin-left: 40rpx;
+    color: #fff;
+  }
+  
+  .userinfo_nickname {
+    font-size: 48rpx;
+    font-weight: 600;
+    line-height: 1;
+    display: block;
+  }
+  
+  /* 退出登录 */
+  
+  .userinfo_des_box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16rpx;
+  }
+  
+  /* 授权提示 */
+  
+  .loginInfo {
+    display: flex;
+    align-items: center;
+    height: 200rpx;
+  }
+  
+  /* 授权提示头像 */
+  
+  .loginInfo-avatar {
+    width: 140rpx;
+    height: 140rpx;
+    margin-left: 48rpx;
+    border-radius: 20rpx;
+    background: #f5f7f7;
+  }  

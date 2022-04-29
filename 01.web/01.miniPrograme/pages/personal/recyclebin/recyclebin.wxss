@@ -1,0 +1,60 @@
+.note {
+    background-color: #fff;
+    border-radius: 30rpx;
+    margin: 5px 15px 5px 15px !important
+  }
+  
+  .noteContent {
+    /* padding: 12px 20px 8px 20px; */
+    padding: 30rpx 30rpx 20rpx 30rpx;
+  }
+  
+  .noteTitle {
+    font-size: 32rpx;
+    font-weight: 600;
+  }
+  
+  .noteDescription {
+    font-size: 26rpx;
+    margin-top: 20rpx;
+    opacity: 0.6;
+  }
+  
+  .noteCreateTime {
+    margin-top: 20rpx;
+    font-size: 24rpx;
+    opacity: 0.6;
+  }
+  
+  .floder {
+    padding: 12px 12px 8px 12px;
+    padding: 30rpx 30rpx 20rpx 30rpx;
+  }
+  
+  .floderIcon {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEoAAABACAYAAAC9S+EXAAAD50lEQVR4Xu2cTVbbMBCANXJCt3CDsCFlBdwgvEd4XcIJGk5QOAFwAugJCCeAZR/hPXID6IqGDblBsyaxxcjEqWtb8pgI8jfeeiSPPo+k0XjGIGbo6j/u1DwPjpUSm6j28jtU74FQbQhKR7D+q1ukPRQRnqSshiQlXL0TUFL1ngy8rSKwZgZU0KnfKxFakpsLRNNbax1QO7OCenmqb4Kv3mPi1OeT5dCa7sjCNMGeV22t0ESFSIFysA5Qnz1xOVyvrgMhL0vVm+s8ZUag1HNtOegvHQulDvMazdt9ANGWa61t27hCUBqS6pevcDepzRsE6njyYIWgcLqd4BpwTO10XuWCQJ2W129PssYH6vFbJZD+vaNt90MZ4lt9UEpd+hLaZd/rFX3YQAwqEnDnhNAosjYpo9sA/p+dQ2x4VvShny2vIcFSfxtW24UBJXUN1+OX8nMmLKWOvK+358k24D/VL4QSjc8eeNHn4bTYxmnRLtrOJD94rDdAiovUfYN/BUFn50oJ2DN02HWl2Lj9yKX+lgtrivQYWtXflOWgyyCrt/tpi+rUtQlWEjd66Cacyi+DpkvlxoXluv2gs7snQf2I7/Z6istqa4sESgXioLTearpWbFr7i6/TRUB1XZv5tAKK6zU8dN/RQQGce2s3R7MwONc6+k+7Z6BUjTT1bE6Xa8Wmrb/whPJSvmNQhDej16tsPyqx62VZlPbe0atteFJsYMChgnEhcugF5/zYDiJhfI5FVNcPxO+SKDWj4B74FlA6HuUJ+I6uQgM1IcNxrPVEu4scXSMox6HXiQ523Idj2Hg1ExRI+YBBLe3eL6QVJcHq5SgFCmOeTTz76SMNQxoS05HQNKhx7XQO24eRi+RiPofjHHtIOvrJoCgYcTliUCRQcM6gCKAwXrfPoAigMv0oQruFE8Gw0wpbVM5rj+JTDCpvfgw/NjCoXFBvgUwGlQNK73g6iYNB5YAKdzzMzmNQdlCjHCoGZQEV/yLDoGwWFfu8zqBsoGIJGwzKAira8bQIg7KAinY8BmXf8bqYNbwaibBFGWAlczoZlMmqEjkYDMoAKpn6xKBMoIZnPF6jiGc8BkU8ujAoK6h0wiuvUVnAMrIOGVQGqPjRhace8ejCoCyg8OiSqmPkqZcARk+fzvsqMe/3zbUwjouaZx2kIc8eq6t2zxaxPNb0Pk1VXMDVn/+QmdanMHCnK4wwR1H/eGHhL3up7Fs1ZKpubQGpWYulQn9hVsplP/Ll5ZXejRwr57/0+MhRue6bUFH2nweaUzbrWr2p6I9aTZZy1cNpKGED8NdDTn8aMxVYRkr08OPBQ6DgJ+V3I7rVK0TsCQLu72JPAAAAAElFTkSuQmCC);
+    background-size: 100%;
+    width: 64rpx;
+    height: 64rpx;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .floderTitle {
+    display: inline-block;
+    position: absolute;
+    left: 20%;
+    top: 50%;
+    margin-top: -15rpx;
+    font-size: 32rpx;
+    font-weight: 600;
+  }
+  
+  .floderNoteCount {
+    display: inline-block;
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    margin: -10rpx;
+  }

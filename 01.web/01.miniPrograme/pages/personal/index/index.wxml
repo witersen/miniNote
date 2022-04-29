@@ -1,0 +1,45 @@
+<cu-custom bgColor="bg-gradual-blue" isBack="{{false}}">
+    <view slot="content">个人中心</view>
+</cu-custom>
+<!-- 微信用户信息 -->
+<view class="userinfo">
+    <image class="userinfo-avatar" src="{{userInfo!=''?userInfo.avatarUrl:'/images/default.png'}}" background-size="cover"></image>
+    <view class='userinfo_right'>
+        <text class="userinfo_nickname" bindtap="{{userInfo==''?'loginNow':''}}">
+            {{userInfo!=''?userInfo.nickName:'授权登录'}}
+        </text>
+        <view class='userinfo_des_box'>
+            <view class="btn-exit" wx-if="{{userInfo!=''}}" bindtap="loginOut">退出</view>
+        </view>
+    </view>
+</view>
+<!-- 授权登录 -->
+<view class="cu-modal {{isShowLogin?'show':''}}">
+    <view class="cu-dialog">
+        <view class="loginInfo">
+            <image class="loginInfo-avatar" src="/images/default.png" background-size="cover"></image>
+            <view style="color: #118fff; font-size: 32rpx;margin-left: 40rpx;">授权登录</view>
+        </view>
+        <view class="cu-bar bg-white justify-end">
+            <view class="action">
+                <button class="cu-btn line-green text-green" bindtap="hideLoginModal">取消</button>
+                <button class="cu-btn bg-green margin-left" bindtap="loginNow">确定</button>
+            </view>
+        </view>
+    </view>
+</view>
+<!-- 操作列表 -->
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+    <view class="cu-item arrow" bindtap="GotoPage" data-url="/pages/personal/recyclebin/recyclebin">
+        <view class="content" hover-class="none">
+            <text class="cuIcon-delete text-green"></text>
+            <text class="text-grey">回收站</text>
+        </view>
+    </view>
+    <view class="cu-item arrow" bindtap="GotoPage" data-url="/pages/personal/password/password">
+        <view class="content" hover-class="none">
+            <text class="cuIcon-lock text-green"></text>
+            <text class="text-grey">隐私密码</text>
+        </view>
+    </view>
+</view>
